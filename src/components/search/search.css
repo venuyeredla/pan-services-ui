@@ -1,0 +1,17 @@
+.search-box{
+ width: 50%;
+ /* height: 50px; */
+ padding-left: 20px;
+}
+.home_page{
+    width: 50%;
+    height: 20%;
+    background-color: black;
+    float: right;
+
+}
+
+.products_results{
+    width: 50%;
+    height: 100%;
+}
