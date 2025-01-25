@@ -17,7 +17,10 @@
     1. Through library functions and providing Router.  <RouterProvider router={router} />
     2. Through RouterComponents.
 
-2. HTTP - Fetch, axios 
+2. HTTP - 
+    Fetch provided by the browser.
+    axios - Popular library.
+    ract-query - with more features.
 
 3. Data binding
     Properties management

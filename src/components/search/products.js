@@ -36,7 +36,6 @@ const ProductsNew= () => {
     <div>
       <h3>Edit product</h3>  
     </div>
-
       )
 }
 
@@ -69,10 +68,10 @@ const Products =(props) => {
               products.map( (product,idx) =>
                //  <li key={product.name}> {product.name} -- {product.price} </li>
               <tr key={idx}>
-                <td>{idx+1}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>Edit</td>
+                <td >{idx+1}</td>
+                <td >{product.name}</td>
+                <td >{product.price}</td>
+                <td >Edit</td>
               </tr>
                 )
             }
@@ -87,5 +86,4 @@ const Products =(props) => {
   export {
     Products,
     ProductsNew
-
   }
