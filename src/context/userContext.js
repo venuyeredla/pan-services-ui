@@ -70,7 +70,6 @@ export const UserProvider = ({ children }) => {
         setError(err.message);
       } finally {
         setLoading(false);
-        setHasSession(false);
       }
     };
 
