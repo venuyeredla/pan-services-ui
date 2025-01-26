@@ -86,7 +86,7 @@ const useFetch = (url) => {
 };
 
 
- function getProductsNew() {
+ function getProducts() {
   try {
     console.log("Debugging axios");
     return axios.get('/api/v1/product/getproducts');
@@ -95,13 +95,6 @@ const useFetch = (url) => {
   }
 }
 
-
-// Getproducts from API.
-async function getProducts() {
-    const response =await fetch("/api/v1/product/getproducts"); // api/v1/product/getproducts
-    const products = await response.json();
-    return products;
-  }
 
    function getQuotes(){
      let quotes=[];
