@@ -87,9 +87,12 @@ const Search = () => {
   function handleSubmit(event) {
     event.preventDefault()
     console.log(`Query: ${searchInputRef.current.value}`)
-    getProducts().then(products => { 
-      setProducts(products);
-    })
+     getProducts().then(response => { 
+        console.log("Debugging...")
+        setProducts(response);
+      }).catch(error => {
+        console.log(error);
+      });
     console.log(products)
    // props.callback(searchInputRef.current.value)
  }

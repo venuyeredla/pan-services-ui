@@ -3,7 +3,6 @@ import { useCookies } from 'react-cookie';
 
 //Creating context
 const UserContext = React.createContext({});
-
  /*
     1. Usered not logged in it has to login page for any URL
     2. User session timeout also should go loging page.

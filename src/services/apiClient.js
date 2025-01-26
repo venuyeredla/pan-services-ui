@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate,Route } from "react-router";
+import { useNavigate } from "react-router";
+import Cookies from 'js-cookie';
 
   function getJwtToken(){
-
+    return Cookies.get("jwtToken")
   }
   // Add a request interceptor
   axios.interceptors.request.use(
@@ -25,17 +26,16 @@ axios.interceptors.response.use(
     return response
   },
   function (error) {
-    const originalRequest = error.config
-
+   // const originalRequest = error.config
     if (
-      error.response.status === 401 &&
-      originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token'
+      error.response.status === 401 /* &&
+      originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token' */
     ) {
       let navigate=useNavigate();
       navigate("/login");
       return Promise.reject(error)
     }
-
+   /*
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
       const refreshToken =  getJwtToken();//localStorageService.getRefreshToken()
@@ -51,6 +51,7 @@ axios.interceptors.response.use(
           }
         })
     }
+        */
     return Promise.reject(error)
   }
 );
@@ -84,6 +85,17 @@ const useFetch = (url) => {
   return [data];
 };
 
+
+ function getProductsNew() {
+  try {
+    console.log("Debugging axios");
+    return axios.get('/api/v1/product/getproducts');
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 // Getproducts from API.
 async function getProducts() {
     const response =await fetch("/api/v1/product/getproducts"); // api/v1/product/getproducts
@@ -109,6 +121,7 @@ export {
     Login,
     SignUP,
     getProducts,
+    getProductsNew,
     getQuotes,
     useFetch
 }

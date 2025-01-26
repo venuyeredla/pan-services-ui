@@ -30,7 +30,6 @@ function ProdctConvas() {
   );
 }
 
-
 const ProductsNew= () => { 
   return (
     <div>
@@ -39,13 +38,15 @@ const ProductsNew= () => {
       )
 }
 
-
 const Products =(props) => {
   const [products, setProducts] = useState([])
   useEffect( () => {
-  getProducts().then(products => { 
-    setProducts(products);
-  })
+    getProducts().then(response => { 
+    console.log("Debugging...")
+    setProducts(response);
+  }).catch(error => {
+    console.log(error);
+  });
    
   },[])
  
@@ -85,5 +86,5 @@ const Products =(props) => {
 
   export {
     Products,
-    ProductsNew
+    ProductsNew,
   }
