@@ -95,7 +95,6 @@ const useFetch = (url) => {
   }
 }
 
-
    function getQuotes(){
      let quotes=[];
         quotes.push({h:"Quote -1",q:"I don't want do this job-1"});
@@ -114,7 +113,6 @@ export {
     Login,
     SignUP,
     getProducts,
-    getProductsNew,
     getQuotes,
     useFetch
 }

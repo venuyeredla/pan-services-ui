@@ -89,7 +89,7 @@ const Search = () => {
     console.log(`Query: ${searchInputRef.current.value}`)
      getProducts().then(response => { 
         console.log("Debugging...")
-        setProducts(response);
+        setProducts(response.data);
       }).catch(error => {
         console.log(error);
       });

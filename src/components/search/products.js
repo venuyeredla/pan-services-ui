@@ -43,7 +43,7 @@ const Products =(props) => {
   useEffect( () => {
     getProducts().then(response => { 
     console.log("Debugging...")
-    setProducts(response);
+    setProducts(response.data);
   }).catch(error => {
     console.log(error);
   });
