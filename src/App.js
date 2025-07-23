@@ -17,24 +17,32 @@ const App =() => {
   const navigate = useNavigate();
   const location = useLocation();
 //  const { hasSession, user, login, logout, loading, error } = useUser();
-    const { hasSession } = useUser();
+    const { hasSession, loading} = useUser();
     useEffect(()=>{
+      if (loading) {
+        console.log("Loading user session...");
+      }else { 
       console.log("Checking for authentication...")
-      //console.log(location.pathname)
+      console.log(location.pathname)
       if (location.pathname!=="/login"){
          if (!hasSession){
              console.log("Unauthorized access...");
              navigate("/login");
              return
           } 
+        }
       }
-    });
+      console.log("after" +location.pathname)
+    },[loading]);
     
-    return (
+  if (loading) {
+    return <div>Loading...</div>;
+  } else{
+     return (
       <Routes>
         <Route path="/" element={<Layout />}>
             <Route index element={<Search />}/>
-            <Route path="login" element={<SignIn/>} errorElement={<NotFound/>} />
+            <Route path="login" element={<SignIn name="venu"/>} errorElement={<NotFound/>} />
             <Route path="search" element={<Search />} />
             <Route path="products" element={<Products />} />
             <Route path="newproduct" element={<ProductsNew />} />
@@ -50,6 +58,8 @@ const App =() => {
         </Route>
       </Routes>
     );
+  }
+   
 }
 
 export default App;

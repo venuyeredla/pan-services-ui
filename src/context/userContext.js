@@ -2,7 +2,8 @@ import React, { useState,useEffect,useContext } from 'react';
 import { useCookies } from 'react-cookie';
 
 //Creating context
-const UserContext = React.createContext({});
+const UserContext = React.createContext();
+
  /*
     1. Usered not logged in it has to login page for any URL
     2. User session timeout also should go loging page.
@@ -26,7 +27,8 @@ export const UserProvider = ({ children }) => {
     const [hasSession, setHasSession] =useState(false);
     useEffect(() => {
         console.log("Checking for cookie.")
-       if (cookies && cookies.jwtToken!=undefined){
+        setLoading(true);
+       if (cookies && cookies.jwtToken!== undefined){
             setHasSession(true);
             try {
                 //Get user information from decoding token.
@@ -34,7 +36,8 @@ export const UserProvider = ({ children }) => {
                console.error("Error parsing user from local storage", parseError);
              }
        }
-    },[hasSession,cookies]);
+       setLoading(false)
+    },[]);
   
     const login = async (userData) => {
       setLoading(true);
@@ -64,6 +67,7 @@ export const UserProvider = ({ children }) => {
         setHasSession(true);
         setUser({...user, name: "Service user"})
         setError(null);
+        return true;
       } catch (err) {
         console.error(err);
         setError(err.message);
@@ -76,6 +80,7 @@ export const UserProvider = ({ children }) => {
       removeCookie("jwtToken");
       setUser(null);
       setHasSession(false);
+      return true;
     };
   
     const value = { hasSession, user, login, logout, loading, error }; // The value provided to consumers

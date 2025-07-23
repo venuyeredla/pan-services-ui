@@ -5,24 +5,27 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import './chatbot.css';
 
 const Chat =()=> {
-     let websockeUrl="ws://localhost:2024/chat";
+     let webSocketUrl="ws://localhost:2024/chat";
      const [sendMsg, setSendMsg] = useState("");
      let [messages,setMessages]=useState([])
-     let websocket = useRef(()=>{   
-      let websocket =new WebSocket(websockeUrl)
+     var chatSocket=null;
+
+    useEffect(()=>{
+
+      chatSocket =new WebSocket(webSocketUrl)
       console.log("connecting to websocekt.")
-      websocket.onopen = function(e) {
+      chatSocket.onopen = function(e) {
         console.log("onopen callback and subscribing to a topic");
        // websocket.send(JSON.stringify({"command": "subscribe","identifier":"{\"channel\":\"/topic/greetings\"}"}))
-        websocket.send("Hi from onopen")
+        chatSocket.send("Hi from onopen")
       };
       
-      websocket.onmessage = function(event) {
+      chatSocket.onmessage = function(event) {
         console.log("onmessage callback and subscribing to a topic");
         setMessages(prevMessages => [...prevMessages, event.data]);
       };
       
-      websocket.onclose = function(event) {
+      chatSocket.onclose = function(event) {
         if (event.wasClean) {
             console("onclose callback : "+event.reason);
         //  alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
@@ -33,21 +36,31 @@ const Chat =()=> {
         }
       };
       
-      websocket.onerror = function(error) {
+      chatSocket.onerror = function(error) {
         console.log("onclose callback :Connection died ");
       };
+
+      return ()=>{
+         console.log("Calling before unmount. Disconnecting socket.")
+         chatSocket.close();
+      }
+       
+    },[webSocketUrl])
+
+
+/*
+     let websocket = useRef(()=>{   
+     
       return websocket;
      });
 
-    useEffect(()=>{
-       
-    },[websockeUrl])
+  */
     
     const handleSubmit = (event) => {
             event.preventDefault();
             console.log("Sending message to ws");
             setMessages(prevMessages => [...prevMessages, sendMsg]);
-            websocket.send(sendMsg) 
+            chatSocket.send(sendMsg) 
     }
 
   return (

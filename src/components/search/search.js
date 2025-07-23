@@ -99,7 +99,7 @@ const Search = () => {
 
   useEffect( () => { 
     setShow(true);
-  },[])
+  },[show])
   
   return (
         <div> 
@@ -131,7 +131,7 @@ const Search = () => {
           <div className='home_page'>
              <HomePageAds/>
           </div>
-           < ProductResults show={show} products={products}> </ProductResults>
+           <ProductResults show={show} products={products}> </ProductResults>
           </div>
         </div>
       );

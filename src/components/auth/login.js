@@ -12,15 +12,24 @@ import Row from 'react-bootstrap/Row';
 function SignIn(props) {
     const [creds, setCreds]=useState({"username":"venugopal@ecom.com","password":"ecom#24"});
     //const { hasSession, user, login, logout, loading, error } = useUser();
-    const { hasSession,login} = useUser();
+    const {login} = useUser();
     const navigate = useNavigate();
 
     function handleLoginSubmit(event){
+      console.log("Submitting login request");
       event.preventDefault()
-      login(creds);
-      if (hasSession){
-        navigate("/search");
+      login(creds).then((result) => {
+        if (result) {
+          console.log("Login successful");
+          navigate("/search");
+        } else {
+          console.log("Login failed");
+        }
+      } ).catch((error) => {
+        console.error("Login error:", error);
+        // Handle error, e.g., show a message to the user
       }
+      );
     }
 
     function  onChnageUser(event) {
@@ -41,21 +50,21 @@ function SignIn(props) {
         <div style={{width:"60%",float:"left"}}></div> 
         <div style={{width:"35%",float:"right"}}>
         <Form onSubmit={handleLoginSubmit}>
-      <Row className="mb-3">
-        <label>Please sign in.</label>
-        <Form.Group as={Col} controlId="formGridEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="text" name="email"  defaultValue={creds.username} placeholder="Enter id..." onChange={onChnageUser} />
-        </Form.Group>
-        </Row>
-        <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password"  defaultValue={creds.password}  placeholder="Enter password..." onChange={onChangePassword} />
-        </Form.Group>
-        </Row>
-      <Button type='submit' variant="primary">Submit</Button>{' '}
-      <Button variant="info" onClick={gotoSignUp}>Sign up</Button>{' '}
+            <Row className="mb-3">
+              <label>Please sign in.</label>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="text" name="email"  defaultValue={creds.username} placeholder="Enter id..." onChange={onChnageUser} />
+              </Form.Group>
+              </Row>
+              <Row className="mb-3">
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password"  defaultValue={creds.password}  placeholder="Enter password..." onChange={onChangePassword} />
+              </Form.Group>
+              </Row>
+            <Button type='submit' variant="primary">Sign In</Button>{' '}
+            <Button variant="info" onClick={gotoSignUp}>Sign up</Button>{' '}
       </Form>
   
         </div>

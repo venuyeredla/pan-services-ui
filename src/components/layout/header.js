@@ -18,10 +18,9 @@ const Header = (props)=> {
 
     function closeSession(){
       console.log("Ending session..")
-      logout();
-      if (!hasSession){
-        navigate("/login")
-      }
+       if (logout()){
+           navigate("/login")
+       }
     }
 
    return (
